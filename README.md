@@ -46,7 +46,7 @@ because the reconstructable layer structure is required for the Grad-CAM.
 The model had some custom layers built into the solution so loading the model requires those to be registered. The 
 custom objects (`CastToFloat16` and `CastToFloat32`) from the original notebook were loaded with the model  using 
 `load_model()` in `src\model_loader.py` with `compile=False` to skip reconstructing config aspects not required during
-inference. The `GRAD_CAM_LAYER_NAME` is set to `"relu4b"` (could use `"conv4b"`). This is the last activation before 
+inference. The `GRAD_CAM_LAYER_NAME` is set to `"relu4b"`. This is the last activation before 
 model's global average pooling layer.
 
 The prediction step in `predict.py` needs only raw 0-255 pixel values passed into it as normalisation is handled 
