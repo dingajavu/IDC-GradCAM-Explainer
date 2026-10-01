@@ -54,7 +54,7 @@ implicitly by the model's own built-in Augmentation and Normalisation layers.
 
 ## UI Design
 
-Dark, cool-toned colour pallette intended to suit the purpose of the system implementation as a support tool for the 
+Dark, cool-toned colour palette intended to suit the purpose of the system implementation as a support tool 
 for an oncology clinician. The CSS targets Streamlit's `data-testid` attributes for chat\file-uploader styling, which 
 can shift between Streamlit versions.
 
@@ -72,12 +72,12 @@ model/                          # The model saved in various formats
     idc_cnn_final.h5 
 app.py                          # Streamlit entry point and UI Styling
 .streamlit/
-    config.toml                 # Base theme colour congifuration
+    config.toml                 # Base theme colour configuration
 src/
     __init__.py
-    model_loader.py             # Loads the model, cahed across reruns
+    model_loader.py             # Loads the model, cached across reruns
     predict.py                  # Image preprocessing and inference
-    explainer.py                # LangChain-based explanation and and conversation set-up
+    explainer.py                # LangChain-based explanation and conversation set-up
     gradcam.py                  # Heatmap generation and overlay placement
           
 ```
