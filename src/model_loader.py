@@ -12,7 +12,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
-MODEL_PATH = PROJECT_DIR / 'model' / "idc_cnn_final.h5"
+MODEL_PATH = PROJECT_DIR / 'model' / "idc_cnn_finalV2.keras"
 
 GRAD_CAM_LAYER_NAME = "relu4b" # Can also try conv4b
 

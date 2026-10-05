@@ -7,7 +7,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from PIL import Image
 
-from src.explaner import ask_follow_up, generate_explanation, reset_session
+from src.explainer import ask_follow_up, generate_explanation, reset_session
 from src.gradcam import gradcam_heatmap, overlay_heatmap, summarise_activation_region
 from src.model_loader import GRAD_CAM_LAYER_NAME, load_model
 from src.predict import predict_image
@@ -109,11 +109,11 @@ st.markdown(
         font-size: 0.85rem;
         font-weight: 500;
     }
-    .badge.benign {
+    .badge.idcnegative {
         background: rgba(79, 169, 140, 0.15);
         color: #4FA98C;
     }
-    .badge.malignant {
+    .badge.idcplus {
         background: rgba(193, 87, 63, 0.15);
         color: #C1573F;
     }
@@ -217,7 +217,7 @@ if uploaded_file is not None:
         overlay = overlay_heatmap(heatmap, original_resized)
         activation_summary = summarise_activation_region(heatmap)
 
-    badge_class = "malignant" if prediction["predicted_class"] == 1 else "benign"
+    badge_class = "idcplus" if prediction["predicted_class"] == 1 else "idcnegative"
     original_b64 = _image_to_base64(image.convert("RGB").resize((200, 200), Image.NEAREST))
     overlay_b64 = _image_to_base64(
         Image.fromarray(overlay).resize((200, 200), Image.NEAREST)

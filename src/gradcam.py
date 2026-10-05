@@ -10,7 +10,7 @@ def gradcam_heatmap(
     """"
     Computes the GradCAM heatmap given an input image and a model.
 
-    Returns a (H, W) heatmap normalized to [0, 1], where H, W match the
+    Returns a (H, W) heatmap normalised to [0, 1], where H, W match the
     relu4b spatial dimensions (will be upscaled to the patch
     size separately, in overlay_heatmap)
     """
@@ -69,7 +69,7 @@ def summarise_activation_region(heatmap: np.ndarray) -> dict:
     intensity = float(heatmap.max())
     if intensity >= 0.75:
         intensity_label= "strongly"
-    elif intesity >= 0.4:
+    elif intensity >= 0.4:
         intensity_label= "moderately"
     else:
         intensity_label = "mildly"

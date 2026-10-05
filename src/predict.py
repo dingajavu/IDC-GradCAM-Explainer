@@ -3,7 +3,7 @@ import tensorflow as tf
 from PIL import Image
 
 PATCH_SIZE = (50, 50)
-CLASS_NAMES = {0: "Benign", 1: "Malignant (IDC)"}
+CLASS_NAMES = {0: "IDC-", 1: "IDC+"}
 
 def preprocess_image(image: Image.Image) -> np.ndarray:
     """
@@ -21,7 +21,7 @@ def predict_image(model: tf.keras.Model, image: Image.Image) -> dict:
     Returns:
         raw sigmoid value
         predicted class (0 or 1)
-        label (Benign or Malignant)
+        label (IDC- or IDC+)
         confidence as a probability
         input_array, reused by Grad-CAM
     """
