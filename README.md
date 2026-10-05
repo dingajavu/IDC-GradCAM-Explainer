@@ -46,7 +46,7 @@ because the reconstructable layer structure is required for the Grad-CAM.
 The model had some custom layers built into the solution so loading the model requires those to be registered. The 
 custom objects (`CastToFloat16` and `CastToFloat32`) from the original notebook were loaded with the model  using 
 `load_model()` in `src\model_loader.py` with `compile=False` to skip reconstructing config aspects not required during
-inference. The `GRAD_CAM_LAYER_NAME` is set to `"relu4b"` (could use `"conv4b"`). This is the last activation before 
+inference. The `GRAD_CAM_LAYER_NAME` is set to `"relu4b"`. This is the last activation before 
 model's global average pooling layer.
 
 The prediction step in `predict.py` needs only raw 0-255 pixel values passed into it as normalisation is handled 
@@ -54,7 +54,7 @@ implicitly by the model's own built-in Augmentation and Normalisation layers.
 
 ## UI Design
 
-Dark, cool-toned colour pallette intended to suit the purpose of the system implementation as a support tool for the 
+Dark, cool-toned colour palette intended to suit the purpose of the system implementation as a support tool 
 for an oncology clinician. The CSS targets Streamlit's `data-testid` attributes for chat\file-uploader styling, which 
 can shift between Streamlit versions.
 
@@ -72,12 +72,12 @@ model/                          # The model saved in various formats
     idc_cnn_final.h5 
 app.py                          # Streamlit entry point and UI Styling
 .streamlit/
-    config.toml                 # Base theme colour congifuration
+    config.toml                 # Base theme colour configuration
 src/
     __init__.py
-    model_loader.py             # Loads the model, cahed across reruns
+    model_loader.py             # Loads the model, cached across reruns
     predict.py                  # Image preprocessing and inference
-    explainer.py                # LangChain-based explanation and and conversation set-up
+    explainer.py                # LangChain-based explanation and conversation set-up
     gradcam.py                  # Heatmap generation and overlay placement
           
 ```
