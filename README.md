@@ -2,7 +2,8 @@
 
 ### Overview
 An AI-powered support tool intended as a research demo. Combines a previously trained CNN image classifier's prediction and Grad-CAM activation-maps with a Google Gemini-generated explanation all hosted on Streamlit interface.
-Intended to be a support tool for oncological clinicians.
+
+Click here for a [Live Demo](https://idc-gradcam-explainer.streamlit.app/)
 
 ## Key Demonstrations in project
 
