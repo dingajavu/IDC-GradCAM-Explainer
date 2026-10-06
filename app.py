@@ -193,7 +193,7 @@ uploaded_file = st.file_uploader("Upload a patch image", type=["png", "jpg", "jp
 
 # Optional sample patches (samples/ folder next to app.py). If the folder is
 # missing or empty, the picker is simply not shown.
-SAMPLE_DIR = Path(__file__).parent / "src/sample images - Kaggle"
+SAMPLE_DIR = Path(__file__).parent / "src/sample images"
 SAMPLES = sorted(SAMPLE_DIR.glob("*.png")) if SAMPLE_DIR.exists() else []
 NO_SAMPLE = "Choose a sample patch"
 
