@@ -1,7 +1,7 @@
 # Invasive Ductal Carcinoma Classifier with Grad-CAM visualisation and LLM Support
 
 ### Overview
-An AI-powered support tool research demo. Combines a previously-trained CNN image classifier's prediction and Grad-CAM activation-maps with a Google Gemini-generated explanation all hosted on Streamlit interface.
+An AI-powered support tool intended as a research demo. Combines a previously trained CNN image classifier's prediction and Grad-CAM activation-maps with a Google Gemini-generated explanation all hosted on Streamlit interface.
 Intended to be a support tool for oncological clinicians.
 
 ## Key Demonstrations in project
