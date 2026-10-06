@@ -1,6 +1,7 @@
 import io
 import uuid
 import base64
+from pathlib import Path
 
 import numpy as np
 import streamlit as st
@@ -19,8 +20,6 @@ st.set_page_config(
     layout = "wide"
 )
 
-st.set_page_config(page_title="Invasive Ductal Carcinoma Classifier and Explainer", layout="wide")
-
 st.markdown(
     """
     <style>
@@ -35,7 +34,7 @@ st.markdown(
         max-width: 1100px;
     }
 
-    /* ── Header ── */
+    /* Header */
     .app-header {
         display: flex;
         align-items: baseline;
@@ -62,7 +61,7 @@ st.markdown(
         margin-bottom: 2rem;
     }
 
-    /* ── Result cards ── */
+    /*  Result cards  */
     .result-row {
         display: flex;
         gap: 1rem;
@@ -129,7 +128,7 @@ st.markdown(
         font-size: 0.8rem;
     }
 
-    /* ── Explanation callout ── */
+    /* Explanation callout */
     .explanation-label {
         color: #838C9C;
         font-size: 0.8rem;
@@ -148,7 +147,7 @@ st.markdown(
     padding: 0.5rem 0 !important;
 }
 
-    /* ── Misc widget tweaks ── */
+    /*  Misc widget tweaks  */
     [data-testid="stFileUploader"] {
         border: 1px dashed #262B36;
         border-radius: 10px;
@@ -188,21 +187,44 @@ st.markdown(
 
 model = load_model()
 
+st.caption("Research demo only. This is not a diagnostic tool.")
+
 uploaded_file = st.file_uploader("Upload a patch image", type=["png", "jpg", "jpeg"])
 
-# Ensures context from previous images is excluded
+# Optional sample patches (samples/ folder next to app.py). If the folder is
+# missing or empty, the picker is simply not shown.
+SAMPLE_DIR = Path(__file__).parent / "sample images - Kaggle"
+SAMPLES = sorted(SAMPLE_DIR.glob("*.png")) if SAMPLE_DIR.exists() else []
+NO_SAMPLE = "Choose a sample patch"
+
+sample_choice = NO_SAMPLE
+if SAMPLES:
+    sample_choice = st.selectbox(
+        "Or try a sample patch", [NO_SAMPLE] + [p.name for p in SAMPLES]
+    )
+    st.caption(
+        "Sample patches are from the Breast Histopathology Images dataset "
+        "(Kaggle), used for demonstration only."
+    )
+
+# An uploaded file takes priority over a sample
+image, image_name = None, None
 if uploaded_file is not None:
-    if st.session_state.get("current_file_name") != uploaded_file.name:
+    image, image_name = Image.open(uploaded_file), f"upload:{uploaded_file.name}"
+elif sample_choice != NO_SAMPLE:
+    image, image_name = Image.open(SAMPLE_DIR / sample_choice), f"sample:{sample_choice}"
+
+# Ensures context from previous images is excluded
+if image is not None:
+    if st.session_state.get("current_file_name") != image_name:
         old_session_id = st.session_state.get("session_id")
         if old_session_id:
             reset_session(old_session_id)
 
-        st.session_state.current_file_name = uploaded_file.name
+        st.session_state.current_file_name = image_name
         st.session_state.session_id = str(uuid.uuid4())
         st.session_state.chat_messages = []
         st.session_state.explanation_generated = False
-
-    image = Image.open(uploaded_file)
 
     with st.spinner("Running prediction..."):
         prediction = predict_image(model, image)
@@ -278,4 +300,4 @@ if uploaded_file is not None:
         with st.chat_message("assistant"):
             st.write(answer)
 else:
-    st.info("Upload a patch image to get started.")
+    st.info("Upload a patch image or pick a sample to get started.")
