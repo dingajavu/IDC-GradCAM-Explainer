@@ -1,5 +1,5 @@
 /.env
 /.venv/
-/src/sample images/
 /src/testing/
 .idea/
+__pycache__/
